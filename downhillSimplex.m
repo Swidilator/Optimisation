@@ -74,7 +74,6 @@ function x = downhillSimplex(f, m)
     disp(z); disp(": coordinates of minimum: "); Matrix(1,1:2)
     disp(z); disp(": function value: "); Matrix(1,3)
     k
-    surf(Matrix);
   end
   
 end
