@@ -12,7 +12,7 @@ function x = downhillSimplex(f, m)
     Matrix(2:3,1:2) = generateVertices(m,z);
     Matrix = sortMatrix(f, Matrix);  %evaluate and sort vertices
     k = 0;                          %maximum iterations
-    disp("Starting 'while' loop");
+    %disp("Starting 'while' loop");
     while((stopCrit(Matrix) > 0.00001) && (k < 10000))
       xRef = [0,0];                   %x', the reflection of x^h
       xRef = (((1 + A) * findCentroid(Matrix)) - A * Matrix(3,1:2)); %reflection
@@ -44,8 +44,8 @@ function x = downhillSimplex(f, m)
       elseif(xRefVal > Matrix(2,3))
         %disp("4");
         %Contract Simplex by Contraction Factor
-        xCon = [0,0];
-        xConVal = 0;
+        %xCon = [0,0];
+        %xConVal = 0;
         %Calculate the Contraction factor
         if(xRefVal < Matrix(3,3))
           xCon = (B * xRef) + ((1 - B) * findCentroid(Matrix));
