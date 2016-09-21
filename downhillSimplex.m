@@ -12,8 +12,9 @@ function x = downhillSimplex(f, m)
     Matrix(2:3,1:2) = generateVertices(m,z);
     Matrix = sortMatrix(f, Matrix);  %evaluate and sort vertices
     k = 0;                          %maximum iterations
+    lowPts = Matrix(1,1:3);
     %disp("Starting 'while' loop");
-    while((stopCrit(Matrix) > 0.00001) && (k < 10000))
+    while((stopCrit(Matrix) > 0.0000001) && (k < 10000))
       xRef = [0,0];                   %x', the reflection of x^h
       xRef = (((1 + A) * findCentroid(Matrix)) - A * Matrix(3,1:2)); %reflection
       xRefVal = f(xRef(1,1),xRef(1,2));
@@ -68,12 +69,38 @@ function x = downhillSimplex(f, m)
           end
         end
       end
+      lowPts = [lowPts;Matrix(1,1:3)];
       k = k + 1;
     end
     disp(" ");
+    Matrix
     disp(z); disp(": coordinates of minimum: "); Matrix(1,1:2)
     disp(z); disp(": function value: "); Matrix(1,3)
     k
+    
+    %Plot surfacemap
+    [X,Y] = meshgrid(-2:0.1:2, -2:0.1:2);
+    Z = (1 - X).^2 + 10 * ((Y - X.^2).^2);
+    figure
+    hold on;
+    surf(X,Y,Z);
+    view(320,120);
+    
+    plot3(lowPts(:,1),lowPts(:,2),lowPts(:,3), '-r*','LineWidth',1, 'MarkerSize', 7);
+  
+    plot3(lowPts(end,1),lowPts(end,2),lowPts(end,3),'y','MarkerSize', 7 );
+    hold off;
+    
+    %Plot contourmap
+    figure
+    [C,h] = contourf(X,Y,Z);
+    clabel(C,h);
+    view(0,90);
+    
+    hold on;
+    plot3(lowPts(1:end-1,1),lowPts(1:end-1,2),lowPts(1:end-1,3), '-r*','LineWidth',1, 'MarkerSize', 7);
+    plot3(lowPts(end,1),lowPts(end,2),lowPts(end,3),'y');
+    hold off;
   end
   
 end
