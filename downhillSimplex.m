@@ -99,7 +99,7 @@ function x = downhillSimplex(f, m)
     
     hold on;
     plot3(lowPts(1:end-1,1),lowPts(1:end-1,2),lowPts(1:end-1,3), '-r*','LineWidth',1, 'MarkerSize', 7);
-    plot3(lowPts(end,1),lowPts(end,2),lowPts(end,3),'y');
+    plot3(lowPts(end,1),lowPts(end,2),lowPts(end,3),'v');
     hold off;
   end
   
